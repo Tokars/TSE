@@ -13,7 +13,7 @@ namespace TSE {
 
         public static addSubscription(code: string, handler: IMessagehandler): void {
 
-            if (MessageBus._subscriptions[code] !== undefined) {
+            if (MessageBus._subscriptions[code] === undefined) {
                 MessageBus._subscriptions[code] = [];
             }
             if (MessageBus._subscriptions[code].indexOf(handler) !== -1) {

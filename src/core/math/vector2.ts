@@ -1,15 +1,12 @@
 namespace TSE {
-    export class Vector3 {
+    export class Vector2 {
         private _x: number;
         private _y: number;
-        private _z: number;
 
-        public constructor(x: number = 0, y: number = 0, z: number = 0) {
+        public constructor(x: number = 0, y: number = 0) {
             this._x = x;
             this._y = y;
-            this._z = z;
         }
-
 
         public get x(): number {
             return this._x;
@@ -19,11 +16,6 @@ namespace TSE {
             return this._y;
         }
 
-        public get z(): number {
-            return this._z;
-        }
-
-
         public set x(value: number) {
             this._x = value;
         }
@@ -32,12 +24,8 @@ namespace TSE {
             this._y = value;
         }
 
-        public set z(v: number) {
-            this._z = v;
-        }
-
         public toArray(): number[] {
-            return [this._x, this._y, this._z];
+            return [this._x, this._y];
         }
 
         public toFloat32Array(): Float32Array {
