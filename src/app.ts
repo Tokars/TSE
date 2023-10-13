@@ -1,5 +1,5 @@
 // The main entry point to the application.
-console.log("hello-o-o-o-o-o!");
+console.log("app start.");
 
 
 let engine: TSE.Engine;

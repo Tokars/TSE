@@ -62,7 +62,6 @@ namespace TSE {
 
             this._sprite.draw();
 
-            // gl.viewport(0, 0, this._canvas.width, this._canvas.height);
             requestAnimationFrame(this.loop.bind(this));
         }
 
