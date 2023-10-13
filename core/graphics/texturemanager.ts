@@ -20,6 +20,7 @@ namespace TSE {
             if (TextureManager._textures[textureName] === undefined) {
                 let texture = new Texture(textureName);
                 TextureManager._textures[textureName] = new TextureRefernceNode(texture);
+                
             } else {
                 TextureManager._textures[textureName].referenceCount++;
             }
@@ -37,7 +38,9 @@ namespace TSE {
                 
                 if (TextureManager._textures[textureName].referenceCount < 1) {
                     TextureManager._textures[textureName].texture.destroy();
-                    delete TextureManager._textures[textureName];
+                    let deleteRes = delete TextureManager._textures[textureName];
+                    
+                    console.log(`release texture: [${textureName}] success result = ${deleteRes}`);
                 }
             }
         }

@@ -3,12 +3,11 @@ namespace TSE {
     export class Sprite {
 
         private _name: string;
-        private _textureName: string;
+        private _materialName: string;
         private _width: number;
         private _height: number;
         private _buffer: GLBuffer;
-        private _texture: Texture;
-
+        private _material: Material;
         private _position: Vector3 = new Vector3();
 
         public get position(): Vector3 {
@@ -22,17 +21,17 @@ namespace TSE {
         /**
          * Create sprite.
          * @param name name of this sprite.
-         * @param textureName name of the texture to use with this sprite.
+         * @param materialName name of the material to use with this sprite.
          * @param width of this sprite.
          * @param height of this sprite.
          */
 
-        public constructor(name: string, textureName: string, width: number = 100, height: number = 100) {
+        public constructor(name: string, materialName: string, width: number = 128, height: number = 128) {
             this._name = name;
-            this._textureName = textureName;
+            this._materialName = materialName;
             this._width = width;
             this._height = height;
-            this._texture = TextureManager.getTexture(textureName);
+            this._material = MaterialManager.getMaterial(this._materialName);
         }
 
         public load(): void {
@@ -43,8 +42,8 @@ namespace TSE {
             positionAttribute.offset = 0;
             positionAttribute.size = 3;
             this._buffer.addAttributeLocation(positionAttribute);
-            
-            
+
+
             let texCoordAttribute = new AttributeInfo()
             texCoordAttribute.location = 1;
             texCoordAttribute.offset = 3;
@@ -67,20 +66,35 @@ namespace TSE {
             this._buffer.unbind();
         }
 
-        public destroy(): void {
-            this._buffer.destroy();
-            TextureManager.releaseTexture(this._textureName);
-        }
+        
 
         public update(time: number): void {
         }
 
         public draw(shader: Shader): void {
-            this._texture.activateAndBind()
-            let diffuseLocation = shader.getUniformLocation("u_diffuse");
-            gl.uniform1i(diffuseLocation, 0);
+
+            let modelLocation = shader.getUniformLocation("u_model");
+            gl.uniformMatrix4fv(modelLocation, false, new Float32Array(Matrix4x4.translation(this.position).data));
+
+            let colorLocation = shader.getUniformLocation("u_tint");
+            let t = this._material.tint;
+            gl.uniform4f(colorLocation, t.r,t.g,t.b,t.a);
+            
+            if (this._material.diffuseTexture !== undefined) {
+                this._material.diffuseTexture.activateAndBind(0);
+                let diffuseLocation = shader.getUniformLocation("u_diffuse");
+                                gl.uniform1i(diffuseLocation, 0);
+            }
+
             this._buffer.bind();
             this._buffer.draw();
+        }
+        
+        public destroy(): void {
+            this._buffer.destroy();
+            MaterialManager.releaseMaterial(this._materialName);
+            // this._material = undefined;
+            // this._materialName = undefined;
         }
     }
 }

@@ -14,5 +14,5 @@ window.onload = function () {
 
 
 window.onresize = function () {
-    engine.fullscreenCanvas();
+    engine.resize();
 }

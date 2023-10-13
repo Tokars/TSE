@@ -3,7 +3,7 @@ namespace TSE {
     /**
      * Represents a WebGL shader.
      */
-    export class Shader {
+    export abstract class Shader {
 
         private _name: string;
         private _program!: WebGLProgram;
@@ -15,8 +15,12 @@ namespace TSE {
          * @param vertexSource The source of the vertext shader.
          * @param fragmentSource The source of the fragment shader.
          */
-        public constructor(name: string, vertexSource: string, fragmentSource: string) {
+        public constructor(name: string) {
             this._name = name;
+
+        }
+
+        protected load(vertexSource: string, fragmentSource: string) {
             let vertexShader = this.loadShader(vertexSource, gl.VERTEX_SHADER);
             let fragmentShader = this.loadShader(fragmentSource, gl.FRAGMENT_SHADER);
 
