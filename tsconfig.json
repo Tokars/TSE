@@ -19,7 +19,9 @@
     "noImplicitAny": true, /* Enable error reporting for expressions and declarations with an implied 'any' type. */
     "strictPropertyInitialization": false, /* Check for class properties that are declared but not set in the constructor. */
     /* Completeness */
-    "skipLibCheck": true /* Skip type checking all .d.ts files. */
+    "skipLibCheck": true, /* Skip type checking all .d.ts files. */
+    "strictNullChecks":false
+    
   },
   "exclude": [
     "node_modules"
