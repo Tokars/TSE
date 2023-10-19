@@ -5,7 +5,7 @@ namespace TSE {
     const BORDER: number = 0;
     const TEMP_IMAGE_DATA: Uint8Array = new Uint8Array([255, 255, 255, 255]);
 
-    export class Texture implements IMessagehandler {
+    export class Texture implements IMessageHandler {
 
         private _name: string;
         private _handle: WebGLTexture | null;

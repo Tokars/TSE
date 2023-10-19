@@ -27,11 +27,11 @@ namespace TSE {
             MessageBus.post(new Message(code, sender, context, MessagePriority.HIGH));
         }
 
-        public static subscribe(code: string, handler: IMessagehandler): void {
+        public static subscribe(code: string, handler: IMessageHandler): void {
             MessageBus.addSubscription(code, handler);
         }
 
-        public static unsubscribe(code: string, handler: IMessagehandler): void {
+        public static unsubscribe(code: string, handler: IMessageHandler): void {
             MessageBus.removeSubscription(code, handler);
         }
     }

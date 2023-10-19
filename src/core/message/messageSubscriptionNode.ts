@@ -2,9 +2,9 @@ namespace TSE {
     export class MessageSubscriptionNode {
 
         public message: Message;
-        public handler: IMessagehandler;
+        public handler: IMessageHandler;
 
-        public constructor(msg: Message, handler: IMessagehandler) {
+        public constructor(msg: Message, handler: IMessageHandler) {
             this.message = msg;
             this.handler = handler;
         }

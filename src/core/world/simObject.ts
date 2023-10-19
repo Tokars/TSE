@@ -7,7 +7,7 @@ namespace TSE {
         private _localMatrix: Matrix4x4 = Matrix4x4.identity();
         private _worldMatrix: Matrix4x4 = Matrix4x4.identity();
         private _scene: Scene;
-        private _components: BaseComponent[] = [];
+        private _components: IComponent[] = [];
         public name: string;
         public transform: Transform = new Transform();
 
@@ -59,7 +59,7 @@ namespace TSE {
             return undefined;
         }
 
-        public addComponent(component: BaseComponent): void {
+        public addComponent(component: IComponent): void {
             this._components.push(component);
             component.setOwner(this);
         }

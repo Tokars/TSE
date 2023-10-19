@@ -2,7 +2,7 @@ namespace TSE {
 
     export class MessageBus {
 
-        private static _subscriptions: { [code: string]: IMessagehandler[] } = {};
+        private static _subscriptions: { [code: string]: IMessageHandler[] } = {};
 
         private static _normalQueueMessagePerUpdate: number = 10;
         private static _normalMessageQueue: MessageSubscriptionNode[] = [];
@@ -11,7 +11,7 @@ namespace TSE {
         }
 
 
-        public static addSubscription(code: string, handler: IMessagehandler): void {
+        public static addSubscription(code: string, handler: IMessageHandler): void {
 
             if (MessageBus._subscriptions[code] === undefined) {
                 MessageBus._subscriptions[code] = [];
@@ -24,7 +24,7 @@ namespace TSE {
         }
 
 
-        public static removeSubscription(code: string, handler: IMessagehandler): void {
+        public static removeSubscription(code: string, handler: IMessageHandler): void {
 
             if (MessageBus._subscriptions[code] === undefined) {
                 console.log(`Cennot unubscribe handler from code: [${code}]. Because that code not subscribed to.`);

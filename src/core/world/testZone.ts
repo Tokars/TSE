@@ -1,4 +1,4 @@
-
+/* 
 /// <reference path ="zone.ts"/>
 
 namespace TSE {
@@ -31,4 +31,4 @@ namespace TSE {
             super.update(time);
         }
     }
-}
+} */

@@ -1,5 +1,5 @@
 namespace TSE {
-    export interface IMessagehandler {
+    export interface IMessageHandler {
         onMessage(message: Message): void;
     }
 }

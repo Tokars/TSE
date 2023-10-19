@@ -26,13 +26,11 @@ namespace TSE {
 
             this._canvas = GLUtilities.initialize();
             AssetManager.initialize();
+            ZoneManager.initialize();
             gl.clearColor(0.01, 0.01, 0.2, 1);
 
             this._basicShader = new BasicShader();
             this._basicShader.use();
-
-
-            let zoneID = ZoneManager.createTestZone();
 
             // Load materials
             MaterialManager.registerMaterial
@@ -40,7 +38,7 @@ namespace TSE {
 
             // load
             this._projection = Matrix4x4.orthographic(0, this._canvas.width, this._canvas.height, 0, -1.0, 100);
-            ZoneManager.changeZone(zoneID);
+            ZoneManager.changeZone(0);
 
             this.resize();
             this.loop();
