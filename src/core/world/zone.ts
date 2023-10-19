@@ -63,19 +63,24 @@ namespace TSE {
             if (data.transform !== undefined) {
                 simObject.transform.setFromJson(data.transform);
             }
-            
-            if (data.components !== undefined){
-                for(let c in data.components){
-                    let d = data.components[c];
-                    let component = ComponentManager.extractComponenet(d);
-                    simObject.addComponent(component);
+
+            if (data.components !== undefined) {
+                for (let i in data.components) {
+                    console.log(`component: ${i}`);
+                    simObject.addComponent(ComponentManager.extractComponent(data.components[i]));
+                }
+            }
+
+            if (data.behaviors !== undefined) {
+                for (let i in data.behaviors) {
+                    console.log(`behavior: ${i}`);
+                    simObject.addBehavior(BehaviorManager.extractBehavior(data.behaviors[i]));
                 }
             }
 
             if (data.children !== undefined) {
-                for (let c in data.children) {
-                    let obj = data.children[c];
-                    this.loadSimObject(obj, simObject);
+                for (let i in data.children) {
+                    this.loadSimObject(data.children[i], simObject);
                 }
             }
 

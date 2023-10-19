@@ -7,6 +7,7 @@ namespace TSE {
         private _localMatrix: Matrix4x4 = Matrix4x4.identity();
         private _worldMatrix: Matrix4x4 = Matrix4x4.identity();
         private _scene: Scene;
+        private _behaviors: IBehavior[] = [];
         private _components: IComponent[] = [];
         public name: string;
         public transform: Transform = new Transform();
@@ -64,6 +65,11 @@ namespace TSE {
             component.setOwner(this);
         }
 
+        public addBehavior(behavior: IBehavior): void {
+            this._behaviors.push(behavior);
+            behavior.setOwner(this);
+        }
+
         public load(): void {
             this._isLoaded = true;
 
@@ -75,15 +81,19 @@ namespace TSE {
                 c.load();
             }
         }
-        
+
         public update(time: number): void {
 
             this._localMatrix = this.transform.getTransformationMatrix();
-            
-            this.updateWorldMatrix( (this._parent !== undefined) ? this._parent.worldMatrix : undefined);
+
+            this.updateWorldMatrix((this._parent !== undefined) ? this._parent.worldMatrix : undefined);
 
             for (let c of this._components) {
                 c.update(time);
+            }
+            
+            for (let b of this._behaviors) {
+                b.update(time);
             }
 
             for (let c of this._chidren) {

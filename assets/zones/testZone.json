@@ -16,15 +16,15 @@
                     "name": "testObject",
                     "transform": {
                         "position": {
-                            "x": 120,
-                            "y": 120
+                            "x": 128,
+                            "y": 128
                         },
                         "rotation": {
                             "z": 180
                         },
                         "scale": {
-                            "x": 2,
-                            "y": 2
+                            "x": 1,
+                            "y": 1
                         }
                     },
                     "components": [
@@ -32,6 +32,15 @@
                             "name": "test",
                             "type": "sprite",
                             "materialName": "avatar"
+                        }
+                    ],
+                    "behaviors": [
+                        {
+                            "name": "rotateX",
+                            "type": "rotation",
+                            "rotation": {
+                                "z": -0.01
+                            }
                         }
                     ]
                 }
@@ -41,6 +50,15 @@
                     "name": "test",
                     "type": "sprite",
                     "materialName": "avatar"
+                }
+            ],
+            "behaviors": [
+                {
+                    "name": "rotateX",
+                    "type": "rotation",
+                    "rotation": {
+                        "z": 0.01
+                    }
                 }
             ]
         }
