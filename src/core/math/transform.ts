@@ -14,8 +14,7 @@ namespace TSE {
         public getTransformationMatrix(): Matrix4x4 {
             let translation = Matrix4x4.translation(this.position);
 
-            // todo: add XY
-            let rotation = Matrix4x4.rotationZ(this.rotation.z);
+            let rotation = Matrix4x4.rotationXYZ(this.rotation.x, this.rotation.y, this.rotation.z);
             let scale = Matrix4x4.scale(this.scale);
 
             // T * R * S

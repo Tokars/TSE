@@ -8,7 +8,6 @@ namespace TSE {
         private _count: number = 0;
         private _canvas!: HTMLCanvasElement;
         private _basicShader: BasicShader;
-        private _sprite: Sprite;
         private _projection: Matrix4x4;
 
 
@@ -28,8 +27,12 @@ namespace TSE {
             this._canvas = GLUtilities.initialize();
             AssetManager.initialize();
             gl.clearColor(0.01, 0.01, 0.2, 1);
+
             this._basicShader = new BasicShader();
             this._basicShader.use();
+
+
+            let zoneID = ZoneManager.createTestZone();
 
             // Load materials
             MaterialManager.registerMaterial
@@ -37,10 +40,8 @@ namespace TSE {
 
             // load
             this._projection = Matrix4x4.orthographic(0, this._canvas.width, this._canvas.height, 0, -1.0, 100);
+            ZoneManager.changeZone(zoneID);
 
-            this._sprite = new Sprite('test', 'avatar', 512, 512);
-            this._sprite.load();
-            this._sprite.position.x = 200;
             this.resize();
             this.loop();
         }
@@ -57,16 +58,17 @@ namespace TSE {
         }
 
         private loop(): void {
-            gl.clear(gl.COLOR_BUFFER_BIT);
             MessageBus.update(0);
+            ZoneManager.update(0);
+            
+            gl.clear(gl.COLOR_BUFFER_BIT);
+            
+            ZoneManager.render(this._basicShader);
 
             // set uniforms
 
             let projectPos = this._basicShader.getUniformLocation("u_projection");
             gl.uniformMatrix4fv(projectPos, false, new Float32Array(this._projection.data));
-
-
-            this._sprite.draw(this._basicShader);
 
             requestAnimationFrame(this.loop.bind(this));
         }

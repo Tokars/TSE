@@ -8,11 +8,6 @@ namespace TSE {
         private _height: number;
         private _buffer: GLBuffer;
         private _material: Material;
-        private _position: Vector3 = new Vector3();
-
-        public get position(): Vector3 {
-            return this._position;
-        }
         public get name(): string {
             return this._name;
         }
@@ -26,7 +21,7 @@ namespace TSE {
          * @param height of this sprite.
          */
 
-        public constructor(name: string, materialName: string, width: number = 128, height: number = 128) {
+        public constructor(name: string, materialName: string, width: number = 64, height: number = 64) {
             this._name = name;
             this._materialName = materialName;
             this._width = width;
@@ -66,30 +61,28 @@ namespace TSE {
             this._buffer.unbind();
         }
 
-        
-
         public update(time: number): void {
         }
 
-        public draw(shader: Shader): void {
+        public draw(shader: Shader, model: Matrix4x4): void {
 
             let modelLocation = shader.getUniformLocation("u_model");
-            gl.uniformMatrix4fv(modelLocation, false, new Float32Array(Matrix4x4.translation(this.position).data));
+            gl.uniformMatrix4fv(modelLocation, false, model.toFloat32Array());
 
             let colorLocation = shader.getUniformLocation("u_tint");
             let t = this._material.tint;
-            gl.uniform4f(colorLocation, t.r,t.g,t.b,t.a);
-            
+            gl.uniform4f(colorLocation, t.r, t.g, t.b, t.a);
+
             if (this._material.diffuseTexture !== undefined) {
                 this._material.diffuseTexture.activateAndBind(0);
                 let diffuseLocation = shader.getUniformLocation("u_diffuse");
-                                gl.uniform1i(diffuseLocation, 0);
+                gl.uniform1i(diffuseLocation, 0);
             }
 
             this._buffer.bind();
             this._buffer.draw();
         }
-        
+
         public destroy(): void {
             this._buffer.destroy();
             MaterialManager.releaseMaterial(this._materialName);
