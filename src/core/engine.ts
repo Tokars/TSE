@@ -3,7 +3,7 @@ namespace TSE {
     /**
      * The main game engine class 
      */
-    export class Engine  implements IMessageHandler{
+    export class Engine implements IMessageHandler {
 
         private _count: number = 0;
         private _canvas!: HTMLCanvasElement;
@@ -18,10 +18,12 @@ namespace TSE {
             // console.log(`${Engine.name} created.`);
         }
         public onMessage(message: Message): void {
-        
-            if (message.code === "MOUSE_UP"){
+
+            if (message.code === "MOUSE_UP") {
                 let pos = InputManager.getMousePosition();
                 document.title = `Pos: [${pos.x}, ${pos.y}]`;
+
+                AudioManager.playSound("plop");
             }
         }
 
@@ -37,7 +39,7 @@ namespace TSE {
             InputManager.initialize();
             ZoneManager.initialize();
             Message.subscribe("MOUSE_UP", this);
-            
+
             gl.clearColor(0.01, 0.01, 0.2, 1);
             gl.enable(gl.BLEND);
             gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
@@ -50,6 +52,7 @@ namespace TSE {
             MaterialManager.registerMaterial(new Material("duck", "assets/textures/duck.png", Color.toFloat(Color.white)));
             MaterialManager.registerMaterial(new Material("frog_marked", "assets/textures/frog_marked.png", Color.toFloat(Color.white)));
             MaterialManager.registerMaterial(new Material("fox", "assets/textures/fox.png", Color.toFloat(Color.white)));
+            AudioManager.loadSoundFile("plop", "assets/sounds/plop.wav", false);
 
             // load
             this._projection = Matrix4x4.orthographic(0, this._canvas.width, this._canvas.height, 0, -1.0, 100);
