@@ -3,7 +3,7 @@ namespace TSE {
     /**
      * The main game engine class 
      */
-    export class Engine {
+    export class Engine  implements IMessageHandler{
 
         private _count: number = 0;
         private _canvas!: HTMLCanvasElement;
@@ -17,6 +17,13 @@ namespace TSE {
             // console.log(`${this.constructor.name} created.`);
             // console.log(`${Engine.name} created.`);
         }
+        public onMessage(message: Message): void {
+        
+            if (message.code === "MOUSE_UP"){
+                let pos = InputManager.getMousePosition();
+                document.title = `Pos: [${pos.x}, ${pos.y}]`;
+            }
+        }
 
         /**
          * Start the engine.
@@ -27,7 +34,10 @@ namespace TSE {
 
             this._canvas = GLUtilities.initialize();
             AssetManager.initialize();
+            InputManager.initialize();
             ZoneManager.initialize();
+            Message.subscribe("MOUSE_UP", this);
+            
             gl.clearColor(0.01, 0.01, 0.2, 1);
             gl.enable(gl.BLEND);
             gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);

@@ -66,6 +66,13 @@
                         2
                     ]
                 }
+            ],
+            "behaviors": [
+                {
+                    "name": "movementBahavior",
+                    "type": "keyboardMovement",
+                    "speed": 1.2
+                }
             ]
         },
         {
