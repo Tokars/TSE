@@ -9,6 +9,7 @@ namespace TSE {
         private _canvas!: HTMLCanvasElement;
         private _basicShader: BasicShader;
         private _projection: Matrix4x4;
+        private _previousTime: number = 0;
 
 
 
@@ -28,13 +29,17 @@ namespace TSE {
             AssetManager.initialize();
             ZoneManager.initialize();
             gl.clearColor(0.01, 0.01, 0.2, 1);
+            gl.enable(gl.BLEND);
+            gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
             this._basicShader = new BasicShader();
             this._basicShader.use();
 
             // Load materials
-            MaterialManager.registerMaterial
-                (new Material("avatar", "assets/textures/avatar.jpg", Color.toFloat(new Color())));
+            MaterialManager.registerMaterial(new Material("avatar", "assets/textures/avatar.jpg", Color.toFloat(Color.white)));
+            MaterialManager.registerMaterial(new Material("duck", "assets/textures/duck.png", Color.toFloat(Color.white)));
+            MaterialManager.registerMaterial(new Material("frog_marked", "assets/textures/frog_marked.png", Color.toFloat(Color.white)));
+            MaterialManager.registerMaterial(new Material("fox", "assets/textures/fox.png", Color.toFloat(Color.white)));
 
             // load
             this._projection = Matrix4x4.orthographic(0, this._canvas.width, this._canvas.height, 0, -1.0, 100);
@@ -56,11 +61,19 @@ namespace TSE {
         }
 
         private loop(): void {
-            MessageBus.update(0);
-            ZoneManager.update(0);
-            
+            this.update();
+            this.render();
+        }
+
+        private update(): void {
+            let delta = performance.now() - this._previousTime;
+            MessageBus.update(delta);
+            ZoneManager.update(delta);
+            this._previousTime = performance.now();
+        }
+        private render(): void {
             gl.clear(gl.COLOR_BUFFER_BIT);
-            
+
             ZoneManager.render(this._basicShader);
 
             // set uniforms

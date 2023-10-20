@@ -4,10 +4,111 @@
     "id": 0,
     "objects": [
         {
+            "name": "fox",
+            "transform": {
+                "position": {
+                    "x": 320,
+                    "y": 400
+                },
+                "scale": {
+                    "x": 5,
+                    "y": 5
+                }
+            },
+            "components": [
+                {
+                    "name": "foxAnimatedSprite",
+                    "type": "animatedSprite",
+                    "materialName": "fox",
+                    "sheetWidth": 198,
+                    "sheetHeight": 32,
+                    "frameWidth": 33,
+                    "frameHeight": 32,
+                    "frameCount": 6,
+                    "frameDelay": 60,
+                    "frameSequence": [
+                        0,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "duck",
+            "transform": {
+                "position": {
+                    "x": 320,
+                    "y": 100
+                },
+                "scale": {
+                    "x": 6,
+                    "y": 6
+                }
+            },
+            "components": [
+                {
+                    "name": "duckAnimatedSprite",
+                    "type": "animatedSprite",
+                    "materialName": "duck",
+                    "sheetWidth": 64,
+                    "sheetHeight": 16,
+                    "frameWidth": 21.12,
+                    "frameHeight": 16,
+                    "frameCount": 3,
+                    "frameDelay": 220,
+                    "frameSequence": [
+                        0,
+                        1,
+                        2
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "frog_marked",
+            "transform": {
+                "position": {
+                    "x": 320,
+                    "y": 200
+                },
+                "scale": {
+                    "x": -2,
+                    "y": 2
+                }
+            },
+            "components": [
+                {
+                    "name": "frogAnimatedSprite",
+                    "type": "animatedSprite",
+                    "materialName": "frog_marked",
+                    "sheetWidth": 256,
+                    "sheetHeight": 128,
+                    "frameWidth": 64,
+                    "frameHeight": 64,
+                    "frameCount": 8,
+                    "frameDelay": 220,
+                    "frameSequence": [
+                        0,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7
+                    ]
+                }
+            ]
+        },
+        {
             "name": "parentObject",
             "transform": {
                 "position": {
-                    "x": 256,
+                    "x": 800,
                     "y": 256
                 }
             },

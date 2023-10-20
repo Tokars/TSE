@@ -1,17 +1,16 @@
 namespace TSE {
-
+    /**
+     * Representation a 2D sprite which is drawn on the screen.
+     */
     export class Sprite {
 
-        private _name: string;
-        private _materialName: string;
-        private _width: number;
-        private _height: number;
-        private _buffer: GLBuffer;
-        private _material: Material;
-        public get name(): string {
-            return this._name;
-        }
-
+        protected _name: string;
+        protected _materialName: string;
+        protected _width: number;
+        protected _height: number;
+        protected _buffer: GLBuffer;
+        protected _material: Material;
+        protected _vertices: Vertext[] = [];
 
         /**
          * Create sprite.
@@ -27,36 +26,39 @@ namespace TSE {
             this._width = width;
             this._height = height;
             this._material = MaterialManager.getMaterial(this._materialName);
+
+            
+        }
+        public get name(): string {
+            return this._name;
         }
 
         public load(): void {
-            this._buffer = new GLBuffer(5);
+            this._buffer = new GLBuffer();
 
             let positionAttribute = new AttributeInfo()
             positionAttribute.location = 0;
-            positionAttribute.offset = 0;
             positionAttribute.size = 3;
             this._buffer.addAttributeLocation(positionAttribute);
 
-
             let texCoordAttribute = new AttributeInfo()
             texCoordAttribute.location = 1;
-            texCoordAttribute.offset = 3;
             texCoordAttribute.size = 2;
             this._buffer.addAttributeLocation(texCoordAttribute);
-
-            let vertices = [
+            
+            this._vertices = [
                 // x,y,z, u,v
-                0, 0, 0, 0, 0,
-                0, this._height, 0, 0, 1.0,
-                this._width, this._height, 0, 1.0, 1.0,
-
-                this._width, this._height, 0, 1.0, 1.0,
-                this._width, 0, 0, 1.0, 0,
-                0, 0, 0, 0, 0
-
+                new Vertext(0, 0, 0, 0, 0),
+                new Vertext(0, this._height, 0, 0, 1.0),
+                new Vertext(this._width, this._height, 0, 1.0, 1.0),
+                new Vertext(this._width, this._height, 0, 1.0, 1.0),
+                new Vertext(this._width, 0, 0, 1.0, 0),
+                new Vertext(0, 0, 0, 0, 0)
             ];
-            this._buffer.pushBackData(vertices);
+
+            for (let v of this._vertices) {
+                this._buffer.pushBackData(v.toArray());
+            }
             this._buffer.upload();
             this._buffer.unbind();
         }
@@ -86,8 +88,8 @@ namespace TSE {
         public destroy(): void {
             this._buffer.destroy();
             MaterialManager.releaseMaterial(this._materialName);
-            // this._material = undefined;
-            // this._materialName = undefined;
+            this._material = undefined;
+            this._materialName = undefined;
         }
     }
 }
