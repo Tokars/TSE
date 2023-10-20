@@ -16,7 +16,7 @@ namespace TSE {
         /**
             The number of element from the begining of the buffer.
         */
-        public offset: number;
+        public offset: number = 0;
     }
 
     /**
@@ -24,7 +24,7 @@ namespace TSE {
      */
     export class GLBuffer {
 
-        private hasAttributeLocation: boolean = false;
+        private _hasAttributeLocation: boolean = false;
         private _elementSize: number;
         private _stride: number;
         private _buffer: WebGLBuffer | null;
@@ -32,25 +32,24 @@ namespace TSE {
         private _dataType: number;
         private _mode: number;
         private _typeSize: number;
+        private _totalOffset: number = 0;
 
         private _data: number[] = [];
         private _attributes: AttributeInfo[] = [];
 
         /**
          * Create a new GL buffer.
-         * @param elementSize The size of each element in ths buffer.
          * @param dataType The data type of this buffer. gl.FLOAT.
          * @param targetBuffreType The buffer target type. Can be either gl.ARRAY_BUFFER or  gl.ELEMENT_ARRAY_BUFFER. default gl.ARRAY_BUFFER.
          * @param mode The drawing mode of this buffer. (i.e. gl.TRIANGLES, or gl.LINES) Default: gl.TRIANGLES.
          */
         public constructor(
-            elementSize: number,
             dataType: number = gl.FLOAT,
             targetBuffreType: number = gl.ARRAY_BUFFER,
             mode: number = gl.TRIANGLES
         ) {
 
-            this._elementSize = elementSize;
+            this._elementSize = 0;
             this._dataType = dataType;
             this._targetBuffreType = targetBuffreType;
             this._mode = mode;
@@ -76,7 +75,6 @@ namespace TSE {
                     throw Error(`Unrecognized data type: ${dataType}`);
             }
 
-            this._stride = this._elementSize * this._typeSize;
             this._buffer = gl.createBuffer();
         }
 
@@ -89,7 +87,7 @@ namespace TSE {
         */
         public bind(normilized: boolean = false): void {
             gl.bindBuffer(this._targetBuffreType, this._buffer);
-            if (this.hasAttributeLocation) {
+            if (this._hasAttributeLocation) {
                 for (let it of this._attributes) {
                     gl.vertexAttribPointer(it.location, it.size, this._dataType, normilized, this._stride, it.offset * this._typeSize);
                     gl.enableVertexAttribArray(it.location);
@@ -116,8 +114,11 @@ namespace TSE {
          * @param info 
          */
         public addAttributeLocation(info: AttributeInfo): void {
-            this.hasAttributeLocation = true;
+            this._hasAttributeLocation = true;
+            info.offset = this._elementSize;
             this._attributes.push(info);
+            this._elementSize += info.size;
+            this._stride = this._elementSize * this._typeSize;
         }
 
         /**
@@ -129,6 +130,21 @@ namespace TSE {
             for (let d of data) {
                 this._data.push(d);
             }
+        }
+        
+        /**
+         * Replaces the current data in ths buffer with the provided data.
+         * @param data The data to be loaded in this buffer.
+         */
+        public setData(data: number[]): void {
+            this.clearData();
+            this.pushBackData(data);
+        }
+        /**
+         * Clears all data for this buffer.
+         */
+        public clearData(): void {
+            this._data.length = 0;
         }
 
         /**
