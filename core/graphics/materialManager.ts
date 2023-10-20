@@ -25,7 +25,6 @@ namespace TSE {
 
         public static getMaterial(materialName: string): Material {
             if (MaterialManager._materials[materialName] === undefined) {
-                // return undefined;
                 throw new Error(`Required material [${materialName}] doesn't exists or not registered.`);
             } else {
                 MaterialManager._materials[materialName].referenceCount++;

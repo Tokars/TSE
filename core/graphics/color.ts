@@ -54,22 +54,27 @@ namespace TSE {
             return new Float32Array(this.toFloatArray());
         }
 
-        public static white(): Color {
+        public static get white(): Color {
             return new Color(255, 255, 255, 255);
         }
-        public static black(): Color {
+        public static get black(): Color {
             return new Color(0, 0, 0, 255);
         }
-        public static red(): Color {
+        public static get red(): Color {
             return new Color(255, 0, 0, 255);
         }
 
-        public static green(): Color {
+        public static get green(): Color {
             return new Color(0, 255, 0, 255);
         }
-        public static blue(): Color {
+        public static get blue(): Color {
             return new Color(0, 0, 255, 255);
         }
+        
+        public static get clear(): Color {
+            return new Color(0, 0, 0, 0);
+        }
+
 
         public static toFloat(color: Color): Color {
 

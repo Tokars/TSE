@@ -13,11 +13,13 @@ namespace TSE {
 
         public static addSubscription(code: string, handler: IMessageHandler): void {
 
+            // console.log(`-------- [MessageBus] : addSubscription with code: [ ${code}]`);
+
             if (MessageBus._subscriptions[code] === undefined) {
                 MessageBus._subscriptions[code] = [];
             }
             if (MessageBus._subscriptions[code].indexOf(handler) !== -1) {
-                console.log(`Attempting to add a duplicate handler to code: [${code}]. Subscription not added.`);
+                throw new Error(`Attempting to add a duplicate handler to code: [${code}]. Subscription not added.`);
             } else {
                 MessageBus._subscriptions[code].push(handler);
             }
@@ -39,7 +41,7 @@ namespace TSE {
         }
 
         public static post(message: Message): void {
-            console.log(`Message posted ${message}`);
+            // console.log(`Message post code: [${message.code}] sender: [${message.sender.name}]`);
 
             let handlers = MessageBus._subscriptions[message.code];
             if (handlers === undefined) {
@@ -63,6 +65,7 @@ namespace TSE {
             for (let i = 0; i < messageLimit; ++i) {
                 let node = MessageBus._normalMessageQueue.pop();
                 node?.handler.onMessage(node.message);
+                
             }
         }
     }

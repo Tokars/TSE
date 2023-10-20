@@ -24,6 +24,7 @@ namespace TSE {
         }
 
         public load(): void {
+            console.log(`- - - - LOAD SCENE - - - `);
             this._root.load();
         }
 

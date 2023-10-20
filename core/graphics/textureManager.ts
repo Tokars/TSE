@@ -20,7 +20,7 @@ namespace TSE {
             if (TextureManager._textures[textureName] === undefined) {
                 let texture = new Texture(textureName);
                 TextureManager._textures[textureName] = new TextureRefernceNode(texture);
-                
+
             } else {
                 TextureManager._textures[textureName].referenceCount++;
             }
@@ -31,15 +31,14 @@ namespace TSE {
         public static releaseTexture(textureName: string): void {
             if (TextureManager._textures[textureName] === undefined) {
                 console.warn(`A texture [${textureName}] doesn't not exists. And cannot be released.`);
-
             } else {
-                
-                TextureManager._textures[textureName].referenceCount --;
-                
+
+                TextureManager._textures[textureName].referenceCount--;
+
                 if (TextureManager._textures[textureName].referenceCount < 1) {
                     TextureManager._textures[textureName].texture.destroy();
                     let deleteRes = delete TextureManager._textures[textureName];
-                    
+
                     console.log(`release texture: [${textureName}] success result = ${deleteRes}`);
                 }
             }

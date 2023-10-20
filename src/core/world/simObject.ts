@@ -63,6 +63,7 @@ namespace TSE {
         public addComponent(component: IComponent): void {
             this._components.push(component);
             component.setOwner(this);
+            console.log(`[GameObject][${this.name}] added component = [${component.name}]`);
         }
 
         public addBehavior(behavior: IBehavior): void {
@@ -71,8 +72,6 @@ namespace TSE {
         }
 
         public load(): void {
-            this._isLoaded = true;
-
             for (let c of this._components) {
                 c.load();
             }
@@ -80,6 +79,7 @@ namespace TSE {
             for (let c of this._chidren) {
                 c.load();
             }
+            this._isLoaded = true;
         }
 
         public update(time: number): void {

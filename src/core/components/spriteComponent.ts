@@ -1,4 +1,5 @@
 /// <reference path ="componentManager.ts"/>
+/// <reference path ="baseComponent.ts"/>
 
 namespace TSE {
 
@@ -13,6 +14,7 @@ namespace TSE {
             if (json.materialName !== undefined) {
                 this.materialName = String(json.materialName);
             }
+            // console.log(`[SpriteComponentData] name = [${this.name}] materialName = [${this.materialName}] Set from JSON`);
         }
     }
 
@@ -22,7 +24,7 @@ namespace TSE {
         }
         public buildFromJson(json: any): IComponent {
 
-            console.log(`---- buildFromJson ----`);
+            // console.log(`[SpriteComponentBuilder] Build from JSON`);
             let data = new SpriteComponentData();
             data.setFromJson(json);
 

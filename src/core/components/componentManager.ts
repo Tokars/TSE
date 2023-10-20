@@ -4,11 +4,14 @@ namespace TSE {
         private static _registeredBuilders: { [type: string]: IComponentBuilder } = {};
 
         public static registerBuilder(builder: IComponentBuilder): void {
-            console.log(`----- [ComponentManager] register builder [${String(builder.type)}] -----`);
+            // console.log(`----- [ComponentManager] register builder [${String(builder.type)}] -----`);
             ComponentManager._registeredBuilders[String(builder.type)] = builder;
         }
 
         public static extractComponent(json: any): IComponent {
+
+            // console.log(`[ComponentManager]: Extract component = [${json.type}]`);
+
             if (json.type !== undefined) {
 
                 let key: string = String(json.type);

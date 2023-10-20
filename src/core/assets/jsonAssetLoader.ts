@@ -23,7 +23,7 @@ namespace TSE {
         }
 
         private onJsonLoaded(assetName: string, request: XMLHttpRequest): void {
-            console.log(`onJsonLoaded: assetName/request`, assetName, request);
+            console.log(`onJsonLoaded: assetName/request`, assetName);
 
             if (request.readyState === request.DONE) {
                 let json = JSON.parse(request.responseText);

@@ -58,6 +58,7 @@ namespace TSE {
             }
 
             this._globalID++;
+            console.log(`[zone]: load sim object: ID = [${this._globalID}] name = [${name}]`);
             let simObject = new SimObject(this._globalID, name, this._scene);
 
             if (data.transform !== undefined) {
@@ -66,14 +67,12 @@ namespace TSE {
 
             if (data.components !== undefined) {
                 for (let i in data.components) {
-                    console.log(`component: ${i}`);
                     simObject.addComponent(ComponentManager.extractComponent(data.components[i]));
                 }
             }
 
             if (data.behaviors !== undefined) {
                 for (let i in data.behaviors) {
-                    console.log(`behavior: ${i}`);
                     simObject.addBehavior(BehaviorManager.extractBehavior(data.behaviors[i]));
                 }
             }
