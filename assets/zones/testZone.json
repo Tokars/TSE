@@ -7,8 +7,8 @@
             "name": "fox",
             "transform": {
                 "position": {
-                    "x": 320,
-                    "y": 400
+                    "x": 400,
+                    "y": 390
                 },
                 "scale": {
                     "x": 5,
@@ -64,7 +64,19 @@
                         0,
                         1,
                         2
-                    ]
+                    ],
+                    "origin": {
+                        "x": 0.5,
+                        "y": 0.5
+                    }
+                },
+                {
+                    "type": "collision",
+                    "name": "duckCollision",
+                    "shape": {
+                        "type": "circle",
+                        "radius": 44
+                    }
                 }
             ],
             "behaviors": [
@@ -79,8 +91,8 @@
             "name": "frog_marked",
             "transform": {
                 "position": {
-                    "x": 320,
-                    "y": 200
+                    "x": 380,
+                    "y": 420
                 },
                 "scale": {
                     "x": -2,
@@ -107,7 +119,11 @@
                         5,
                         6,
                         7
-                    ]
+                    ],
+                    "origin": {
+                        "x": 0.5,
+                        "y": 0.5
+                    }
                 }
             ]
         },
@@ -115,60 +131,31 @@
             "name": "parentObject",
             "transform": {
                 "position": {
-                    "x": 800,
+                    "x": 256,
                     "y": 256
                 }
             },
-            "children": [
-                {
-                    "name": "testObject",
-                    "transform": {
-                        "position": {
-                            "x": 128,
-                            "y": 128
-                        },
-                        "rotation": {
-                            "z": 180
-                        },
-                        "scale": {
-                            "x": 1,
-                            "y": 1
-                        }
-                    },
-                    "components": [
-                        {
-                            "name": "test",
-                            "type": "sprite",
-                            "materialName": "avatar"
-                        }
-                    ],
-                    "behaviors": [
-                        {
-                            "name": "rotateX",
-                            "type": "rotation",
-                            "rotation": {
-                                "z": -0.01
-                            }
-                        }
-                    ]
-                }
-            ],
             "components": [
                 {
                     "name": "test",
                     "type": "sprite",
-                    "materialName": "avatar"
-                }
-            ],
-            "behaviors": [
+                    "materialName": "avatar",
+                    "origin": {
+                        "x": 0.5,
+                        "y": 0.5
+                    }
+                },
                 {
-                    "name": "rotateX",
-                    "type": "rotation",
-                    "rotation": {
-                        "z": 0.01
+                    "name": "test_collision",
+                    "type": "collision",
+                    "shape": {
+                        "type": "rectangle",
+                        "width": 64,
+                        "height": 64
                     }
                 }
-            ]
+            ],
+            "behaviors": []
         }
     ]
 }

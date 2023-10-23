@@ -23,7 +23,7 @@ namespace TSE {
                 let pos = InputManager.getMousePosition();
                 document.title = `Pos: [${pos.x}, ${pos.y}]`;
 
-                AudioManager.playSound("plop");
+                // AudioManager.playSound("plop");
             }
         }
 
@@ -82,6 +82,7 @@ namespace TSE {
             let delta = performance.now() - this._previousTime;
             MessageBus.update(delta);
             ZoneManager.update(delta);
+            CollisionManager.update(delta);
             this._previousTime = performance.now();
         }
         private render(): void {
