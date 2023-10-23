@@ -53,19 +53,18 @@ namespace TSE {
 
         private static onKeyDown(event: KeyboardEvent): boolean {
             InputManager._keys[event.code] = true;
-            console.log(`key down: ${event.code}`);
-
-            event.preventDefault();
-            event.stopPropagation();
+            // console.log(`key down: ${event.code}`);
+            // event.preventDefault();
+            // event.stopPropagation();
             return false;
         }
 
         private static onKeyUp(event: KeyboardEvent): boolean {
             InputManager._keys[event.code] = false;
-            console.log(`key up: ${event.code}`);
+            // console.log(`key up: ${event.code}`);
 
-            event.preventDefault();
-            event.stopPropagation();
+            // event.preventDefault();
+            // event.stopPropagation();
             return false;
         }
 
@@ -76,8 +75,7 @@ namespace TSE {
             InputManager._mouseX = event.clientX;
             InputManager._mouseY = event.clientY;
 
-            console.log("mouse move --------");
-
+            // console.log("mouse move --------");
         }
 
         private static onMouseDown(event: MouseEvent): void {
@@ -89,7 +87,7 @@ namespace TSE {
             }
 
             Message.send("MOUSE_DOWN", new MouseContext(InputManager._lcm, InputManager._rcm, InputManager.getMousePosition()));
-            console.log("mouse down");
+            // console.log("mouse down");
 
         }
 
@@ -100,7 +98,7 @@ namespace TSE {
             } else if (event.button === 2) {
                 InputManager._rcm = false;
             }
-            console.log("mouse up");
+            // console.log("mouse up");
             Message.send("MOUSE_UP", new MouseContext(InputManager._lcm, InputManager._rcm, InputManager.getMousePosition()));
         }
     }
