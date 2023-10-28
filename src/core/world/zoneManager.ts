@@ -13,7 +13,7 @@ namespace TSE {
 
             ZoneManager._inst = new ZoneManager();
             // tmp.
-            ZoneManager._registeredZones[0] = "assets/zones/testZone.json";
+            ZoneManager._registeredZones[0] = "assets/zones/flappy.json";
         }
 
         public static changeZone(id: number): void {

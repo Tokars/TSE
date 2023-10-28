@@ -41,6 +41,14 @@ namespace TSE {
             this.recalculateVerices();
         }
 
+        public get width(): number {
+            return this._width;
+        }
+        public get height(): number {
+            return this._height;
+        }
+
+
         public load(): void {
             this.createGLBuffer();
             this.calculateVertices();

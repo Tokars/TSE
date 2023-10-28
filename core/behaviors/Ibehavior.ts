@@ -4,6 +4,7 @@ namespace TSE {
 
         setOwner(owner: SimObject): void;
 
+        updateReady():void;
         update(time: number): void;
         apply(userData: any): void;
     }

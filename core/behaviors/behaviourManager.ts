@@ -5,7 +5,7 @@ namespace TSE {
         private static _registeredBuilders: { [type: string]: IBehaviorBuilder } = {};
 
         public static registerBuilder(builder: IBehaviorBuilder): void {
-            console.log(`----- [BahaviorManager] : register builder [${String(builder.type)}] -----`);
+            console.log(`----- [BehaviorManager] : register builder [${String(builder.type)}] -----`);
             BehaviorManager._registeredBuilders[String(builder.type)] = builder;
         }
 

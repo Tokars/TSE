@@ -5,9 +5,9 @@ namespace TSE {
 
     export class AnimatedSpriteComponentData extends SpriteComponentData implements IComponentData {
 
+        public autoPlay: boolean = true;
         public sheetWidth: number;
         public sheetHeight: number;
-
         public frameWidth: number;
         public frameHeight: number;
         public frameCount: number;
@@ -17,6 +17,10 @@ namespace TSE {
             super.setFromJson(json);
 
             console.log(`[AnimatedSpriteComponentData] name = [${this.name}] materialName = [${this.materialName}] Set from JSON`);
+            if (json.autoPlay !== undefined) {
+                this.autoPlay = Boolean(json.autoPlay);
+            }
+
             if (json.sheetWidth === undefined) {
                 throw new Error(`[AnimatedSpriteComponentData] error : requires sheetWidth.`)
             } else {
@@ -73,18 +77,35 @@ namespace TSE {
     }
 
     export class AnimatedSpriteComponent extends BaseComponent {
+        private _autoPlay: boolean;
         private _sprite: AnimatedSprite;
 
 
         public constructor(data: AnimatedSpriteComponentData) {
             super(data);
+
+            this._autoPlay = data.autoPlay;
             this._sprite = new AnimatedSprite(data.name, data.materialName,
                 data.sheetWidth, data.sheetHeight, data.frameWidth, data.frameHeight,
                 data.frameCount, data.frameSequence, data.frameDelay);
+
+            if (data.origin.equals(Vector3.zero) === false) {
+                this._sprite.origin.copyFrom(data.origin);
+            }
+        }
+
+        public get isPlaying(): boolean {
+            return this._sprite.isPlaying;
         }
 
         public load(): void {
             this._sprite.load();
+        }
+
+        public updateReady(): void {
+            if (this._autoPlay === false) {
+                this._sprite.stop();
+            }
         }
         public update(time: number): void {
             this._sprite.update(time);
@@ -93,6 +114,18 @@ namespace TSE {
         public render(shader: Shader) {
             this._sprite.draw(shader, this.owner.worldMatrix);
             super.render(shader);
+        }
+
+        public play(): void {
+            this._sprite.play();
+        }
+        public stop(): void {
+            this._sprite.stop();
+        }
+
+
+        public setFrame(frame: number): void {
+            this._sprite.setFrame(frame);
         }
     }
 

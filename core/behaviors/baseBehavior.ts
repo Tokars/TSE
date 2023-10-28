@@ -10,6 +10,8 @@ namespace TSE {
             this._data = data;
             this.name = data.name;
         }
+        public updateReady(): void {
+        }
 
         public setOwner(owner: SimObject): void {
             this._owner = owner;

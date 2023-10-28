@@ -14,6 +14,8 @@ namespace TSE {
     }
 
     export class AnimatedSprite extends Sprite {
+
+        private _isPlaying: boolean = true;
         private _frameWidth: number;
         private _frameHeight: number;
         private _frameCount: number;
@@ -41,6 +43,25 @@ namespace TSE {
             this._frameHeight = frameHeight;
             this._frameCount = frameCount;
             this._frameSequence = frameSequence;
+        }
+
+        public get isPlaying(): boolean {
+            return this._isPlaying;
+        }
+
+        public play(): void {
+            this._isPlaying = true;
+        }
+        public stop(): void {
+            this._isPlaying = false;
+        }
+
+        public setFrame(frame: number): void {
+            if (frame >= this._frameCount) {
+                throw new Error(`[Animated Sprite] error: Frame is out of range ${frame} >= frame count ${this._frameCount}`);
+            }
+
+            this._currentFrame = frame;
         }
 
         protected calculateVertices(): void {
@@ -71,6 +92,10 @@ namespace TSE {
         }
 
         public update(time: number): void {
+
+            if (this._isPlaying === false) {
+                return;
+            }
             this._currentTime += time;
 
             if (this._currentTime > this._frameTime) {

@@ -44,6 +44,7 @@ namespace TSE {
         }
 
         public static playSound(name: string): void {
+            console.log(`play sound [${name}]`);
             if (AudioManager._soundEffects[name] !== undefined)
                 AudioManager._soundEffects[name].play();
         }

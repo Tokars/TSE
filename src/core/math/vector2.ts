@@ -23,6 +23,16 @@ namespace TSE {
         public set y(value: number) {
             this._y = value;
         }
+
+        public set(x?: number, y?: number) {
+            if (x !== undefined) {
+                this._x = x;
+            }
+            if (y !== undefined) {
+                this._y = y;
+            }
+        }
+
         public static get zero(): Vector2 {
 
             return new Vector2();
@@ -40,6 +50,11 @@ namespace TSE {
         public toFloat32Array(): Float32Array {
             return new Float32Array(this.toArray());
         }
+
+        public toVector3(): Vector3 {
+            return new Vector3(this._x, this._y, 0);
+        }
+
 
         public setFromJson(json: any): void {
             if (json.x !== undefined) {
@@ -87,8 +102,15 @@ namespace TSE {
 
             return this;
         }
-        
-        public clone():Vector2{
+
+        public scale(scale: number): Vector2 {
+            this._x *= scale;
+            this._y *= scale;
+
+            return this;
+        }
+
+        public clone(): Vector2 {
             return new Vector2(this._x, this._y);
         }
     }

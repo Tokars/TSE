@@ -46,6 +46,44 @@ namespace TSE {
             }
         }
 
+        public getComponentByName(name: string): IComponent {
+            // todo: improve this slow search.
+            for (let component of this._components) {
+                if (component.name === name) {
+                    return component;
+                }
+            }
+
+            // todo: move to own method search in child.
+            for (let child of this._chidren) {
+                let component = child.getComponentByName(name);
+                if (component !== undefined) {
+                    return component;
+                }
+            }
+
+            return undefined;
+        }
+
+        public getBehaviorByName(name: string): IBehavior {
+            // todo: improve this slow search.
+            for (let behavior of this._behaviors) {
+                if (behavior.name === name) {
+                    return behavior;
+                }
+            }
+
+            // todo: move to own method search in child.
+            for (let child of this._chidren) {
+                let behavior = child.getBehaviorByName(name);
+                if (behavior !== undefined) {
+                    return behavior;
+                }
+            }
+
+            return undefined;
+        }
+
         public getObjectByName(name: string): SimObject {
             if (this.name === name) {
                 return this;
@@ -81,6 +119,19 @@ namespace TSE {
             }
             this._isLoaded = true;
         }
+        public updateReady(): void {
+            for (let c of this._components) {
+                c.updateReady();
+            }
+
+            for (let b of this._behaviors) {
+                b.updateReady();
+            }
+
+            for (let c of this._chidren) {
+                c.updateReady();
+            }
+        }
 
         public update(time: number): void {
 
@@ -91,7 +142,7 @@ namespace TSE {
             for (let c of this._components) {
                 c.update(time);
             }
-            
+
             for (let b of this._behaviors) {
                 b.update(time);
             }
@@ -109,6 +160,9 @@ namespace TSE {
             for (let c of this._chidren) {
                 c.render(shader);
             }
+        }
+        public getWorldPosition(): Vector3 {
+            return new Vector3( this._worldMatrix.data[12], this._worldMatrix.data[13], this._worldMatrix.data[14] );
         }
 
         protected onAdded(scene: Scene): void {

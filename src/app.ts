@@ -8,7 +8,7 @@ let engine: TSE.Engine;
 window.onload = function () {
     
     console.log(`app : window is loaded.`);
-    engine = new TSE.Engine();
+    engine = new TSE.Engine(320, 480);
     engine.start();
 }
 
