@@ -31,8 +31,8 @@ namespace TSE {
 
 
             gl = canvas.getContext('webgl') as WebGLRenderingContext;
-            if (gl === null) {
-                throw new Error(`Unable to initialize WebGl`);
+            if (gl === null || gl === undefined) {
+                throw new Error(`Unable to initialize WebGL`);
             }
 
             return canvas;

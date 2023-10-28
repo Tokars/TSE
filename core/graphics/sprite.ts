@@ -42,18 +42,7 @@ namespace TSE {
         }
 
         public load(): void {
-            this._buffer = new GLBuffer();
-
-            let positionAttribute = new AttributeInfo()
-            positionAttribute.location = 0;
-            positionAttribute.size = 3;
-            this._buffer.addAttributeLocation(positionAttribute);
-
-            let texCoordAttribute = new AttributeInfo()
-            texCoordAttribute.location = 1;
-            texCoordAttribute.size = 2;
-            this._buffer.addAttributeLocation(texCoordAttribute);
-
+            this.createGLBuffer();
             this.calculateVertices();
         }
 
@@ -84,6 +73,20 @@ namespace TSE {
             MaterialManager.releaseMaterial(this._materialName);
             this._material = undefined;
             this._materialName = undefined;
+        }
+
+        protected createGLBuffer(): void {
+            this._buffer = new GLBuffer();
+
+            let positionAttribute = new AttributeInfo()
+            positionAttribute.location = 0;
+            positionAttribute.size = 3;
+            this._buffer.addAttributeLocation(positionAttribute);
+
+            let texCoordAttribute = new AttributeInfo()
+            texCoordAttribute.location = 1;
+            texCoordAttribute.size = 2;
+            this._buffer.addAttributeLocation(texCoordAttribute);
         }
 
         protected calculateVertices(): void {

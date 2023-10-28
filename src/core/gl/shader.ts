@@ -75,7 +75,7 @@ namespace TSE {
             gl.shaderSource(shader, source);
             gl.compileShader(shader);
 
-            let error = gl.getShaderInfoLog(shader);
+            let error = gl.getShaderInfoLog(shader).trim();
             if (error !== "") {
                 throw new Error(`Error compiling shader ${this._name}: ${error}`);
             }
@@ -89,7 +89,7 @@ namespace TSE {
             gl.attachShader(this._program, vertexShader);
             gl.attachShader(this._program, fragmentShader);
             gl.linkProgram(this._program);
-            let error = gl.getProgramInfoLog(this._program);
+            let error = gl.getProgramInfoLog(this._program).trim();
             if (error !== "") {
                 throw new Error(`Error linking shader ${this._name}: ${error}`);
             }

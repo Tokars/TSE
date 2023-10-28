@@ -41,23 +41,22 @@ namespace TSE {
             this._frameHeight = frameHeight;
             this._frameCount = frameCount;
             this._frameSequence = frameSequence;
-            this.calcUVs();
         }
 
-        private calcUVs() {
+        protected calculateVertices(): void {
             let x: number = 0;
             let y: number = 0;
             for (let i = 0; i < this._frameCount; ++i) {
                 x = (i * this._frameWidth) % this._width;
-                console.log(`x = ${x}: y = ${y}`);
+                // console.log(`x = ${x}: y = ${y}`);
                 let minU = x / this._width;
                 let minV = (y * this._frameHeight) / this._height;
                 let min: Vector2 = new Vector2(minU, minV);
-                console.log(`min UV [x.${min.x} y.${min.y}]`);
+                // console.log(`min UV [x.${min.x} y.${min.y}]`);
                 let maxU = (x + this._frameWidth) / this._width;
                 let maxV = ((y * this._frameHeight) + this._frameHeight) / this._height;
                 let max: Vector2 = new Vector2(maxU, maxV);
-                console.log(`max UV [x.${max.x} y.${max.y}]`);
+                // console.log(`max UV [x.${max.x} y.${max.y}]`);
 
                 // it's mean uv pos. reached to the right edge of sprite-sheet.
                 if (max.x == 1) {
